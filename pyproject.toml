@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "inspect-briq"
+dynamic = ["version"]
+description = "Run Inspect AI sandboxes on briq: one microVM per sample."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["inspect", "inspect-ai", "evals", "sandbox", "briq", "agents"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = ["inspect-ai>=0.3.287", "briq-cloud>=0.1.1,<0.2", "pydantic>=2", "typing-extensions>=4.5"]
+
+[project.urls]
+Homepage = "https://briq.cloud"
+Repository = "https://github.com/briq-cloud/inspect-briq"
+
+# Inspect loads this module at startup, which registers the "briq" sandbox type.
+[project.entry-points.inspect_ai]
+inspect_briq = "inspect_briq._registry"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "mypy>=1.11", "ruff>=0.6"]
+
+[tool.hatch.version]
+path = "src/inspect_briq/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/inspect_briq"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "C4", "PT"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+files = ["src", "tests"]
