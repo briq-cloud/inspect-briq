@@ -20,7 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
-dependencies = ["inspect-ai>=0.3.287", "briq-cloud>=0.1.1,<0.2", "pydantic>=2", "typing-extensions>=4.5"]
+dependencies = ["inspect-ai>=0.3.287", "briq-cloud>=0.2,<0.3", "pydantic>=2", "typing-extensions>=4.5"]
 
 [project.urls]
 Homepage = "https://briq.cloud"
